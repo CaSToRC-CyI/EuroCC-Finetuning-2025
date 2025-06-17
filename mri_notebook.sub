@@ -62,5 +62,5 @@ echo "$CONNECTION_MESSAGE" | tee connection_info.txt
 
 notebooks=/nvme/h/gkosta/data_p236/agora-conv3d-classification/notebooks
 # Run Jupyter notebook
-uv run --with jupyter jupyter lab --port=$JUPYTER_PORT --NotebookApp.password="$HASHED_PASSWORD" --notebook-dir="$notebooks" --no-browser --ip 0.0.0.0uv run --with jupyter jupyter lab
+uv run --with jupyter jupyter lab --port=$JUPYTER_PORT --NotebookApp.password="$HASHED_PASSWORD" --notebook-dir="$notebooks" --no-browser --ip 0.0.0.0
 
