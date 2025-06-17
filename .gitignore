@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.venv
+.uv
+*.log
+.DS_Store
+
+# Virtual environments
+.venv
+
+
+output/
+results/
+data/
+models/
+unsloth_compiled_cache/

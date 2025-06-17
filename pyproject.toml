@@ -1,0 +1,19 @@
+[project]
+name = "finetuning-event"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.7.0",
+    "bitsandbytes>=0.46.0",
+    "datasets>=3.6.0",
+    "flash-attention>=1.0.0",
+    "huggingface-hub>=0.32.4",
+    "jupyter>=1.1.1",
+    "peft>=0.15.2",
+    "torch>=2.7.0",
+    "transformers>=4.52.4",
+    "trl>=0.18.2",
+    "unsloth>=2025.6.2",
+]
