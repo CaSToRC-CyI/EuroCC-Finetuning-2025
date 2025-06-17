@@ -1,0 +1,66 @@
+#!/bin/bash -l
+
+#SBATCH --job-name=EuroCC-Training
+#SBATCH --partition=gpu # Partition
+#SBATCH --nodes=1 # Number of nodes
+#SBATCH --gres=gpu:1 # Number of GPUs
+#SBATCH --ntasks-per-node=1  # Number of tasks
+#SBATCH --cpus-per-task=20
+#SBATCH --output=job.%j.out # Stdout (%j=jobId)
+#SBATCH --error=job.%j.err # Stderr (%j=jobId)
+#SBATCH --time=4:00:00 # Walltime
+#SBATCH -A edu28 # Accounting project
+#SBATCH --export=ALL
+#SBATCH --reservation=short
+
+
+
+# Load any necessary modules
+module load CUDA
+
+
+
+# Load any necessary modules and activate environment
+module load Anaconda3
+
+eval "$(conda shell.bash hook)"
+
+conda activate ../finetuningEnv
+
+HOSTNAME=$(hostname)
+
+
+# Generate random ports for Jupyter and Ollama
+JUPYTER_PORT=$(shuf -i 10000-60000 -n 1)
+
+# Generate a random password for Jupyter Notebook
+PASSWORD=$(openssl rand -base64 12)
+
+# Hash the password using Jupyter's built-in function
+HASHED_PASSWORD=$(python -c "from jupyter_server.auth import passwd; print(passwd('$PASSWORD'))")
+
+
+LOGIN_HOST="cyclone.hpcf.cyi.ac.cy"
+
+
+# Prepare the message to be displayed and saved to a file
+CONNECTION_MESSAGE=$(cat <<EOF
+==================================================================
+Run this command to connect on your jupyter notebooks remotely
+ssh -N -J ${USER}@${LOGIN_HOST} ${USER}@${HOSTNAME} -L ${JUPYTER_PORT}:localhost:${JUPYTER_PORT}
+
+
+Jupyter Notebook is running at: http://localhost:$JUPYTER_PORT
+Jupyter Notebook is running at: http://$HOSTNAME:$JUPYTER_PORT password:$PASSWORD
+Password to access the notebook: $PASSWORD
+==================================================================
+EOF
+)
+
+# Print the connection details to both the terminal and a txt file
+echo "$CONNECTION_MESSAGE" | tee connection_info.txt
+
+notebooks=/nvme/h/gkosta/data_p236/agora-conv3d-classification/notebooks
+# Run Jupyter notebook
+uv run --with jupyter jupyter lab --port=$JUPYTER_PORT --NotebookApp.password="$HASHED_PASSWORD" --notebook-dir="$notebooks" --no-browser --ip 0.0.0.0uv run --with jupyter jupyter lab
+
