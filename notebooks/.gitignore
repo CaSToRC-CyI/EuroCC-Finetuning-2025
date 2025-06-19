@@ -1,0 +1,5 @@
+*.slurm
+*.yaml
+*.py
+
+unsloth_compiled_cache/

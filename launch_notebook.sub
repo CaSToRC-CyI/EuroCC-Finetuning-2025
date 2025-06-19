@@ -5,13 +5,13 @@
 #SBATCH --nodes=1 # Number of nodes
 #SBATCH --gres=gpu:1 # Number of GPUs
 #SBATCH --ntasks-per-node=1  # Number of tasks
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=10
 #SBATCH --output=job.%j.out # Stdout (%j=jobId)
 #SBATCH --error=job.%j.err # Stderr (%j=jobId)
 #SBATCH --time=4:00:00 # Walltime
 #SBATCH -A edu28 # Accounting project
 #SBATCH --export=ALL
-#SBATCH --reservation=short
+##SBATCH --reservation=short
 
 
 
@@ -25,7 +25,7 @@ module load Anaconda3
 
 eval "$(conda shell.bash hook)"
 
-conda activate ../finetuningEnv
+conda activate ~/data_edu28/finetuningEnv
 
 HOSTNAME=$(hostname)
 
@@ -60,7 +60,7 @@ EOF
 # Print the connection details to both the terminal and a txt file
 echo "$CONNECTION_MESSAGE" | tee connection_info.txt
 
-notebooks=/nvme/h/gkosta/data_p236/agora-conv3d-classification/notebooks
+notebooks=./notebooks
 # Run Jupyter notebook
 uv run --with jupyter jupyter lab --port=$JUPYTER_PORT --NotebookApp.password="$HASHED_PASSWORD" --notebook-dir="$notebooks" --no-browser --ip 0.0.0.0
 

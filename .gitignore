@@ -16,8 +16,9 @@ output/
 results/
 data/
 models/
-unsloth_compiled_cache/
 
 *.err
 *.out
 *.txt
+*.python-version
+
