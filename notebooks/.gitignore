@@ -1,5 +1,5 @@
 *.slurm
 *.yaml
 *.py
-
+.ipynb_checkpoints/
 unsloth_compiled_cache/
