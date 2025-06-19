@@ -40,6 +40,7 @@ def main():
         attn_implementation='eager',
         trust_remote_code=True,
         torch_dtype=torch.float16,
+        cache_dir='/nvme/scratch/edu28/models'
     )
     # Move the model to the device specified by Accelerator
     model.to(device)

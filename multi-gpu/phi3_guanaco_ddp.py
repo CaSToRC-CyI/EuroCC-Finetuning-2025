@@ -66,6 +66,7 @@ model = AutoModelForCausalLM.from_pretrained(
     attn_implementation='eager',  # 'eager', 'sdpa', or "flash_attention_2"
     trust_remote_code=True,
     torch_dtype=torch.float16,
+    cache_dir='/nvme/scratch/edu28/models'
 )
 
 # Load the guanaco dataset
