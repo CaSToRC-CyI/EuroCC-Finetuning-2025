@@ -61,9 +61,9 @@ EOF
 # Print the connection details to both the terminal and a txt file
 echo "$CONNECTION_MESSAGE" | tee connection_info.txt
 
-mkdir -p ~/tmpdir
+mkdir -p $HOME/tmpdir
 
-export TMPDIR='~/tmpdir'
+export TMPDIR="$HOME/tmpdir"
 notebooks=./notebooks
 # Run Jupyter notebook
 uv run --with jupyter jupyter lab --port=$JUPYTER_PORT --NotebookApp.password="$HASHED_PASSWORD" --notebook-dir="$notebooks" --no-browser --ip 0.0.0.0
