@@ -11,7 +11,7 @@
 #SBATCH --time=4:00:00 # Walltime
 #SBATCH -A edu28 # Accounting project
 #SBATCH --export=ALL
-##SBATCH --reservation=short
+#SBATCH --reservation=edu28
 
 
 
@@ -57,9 +57,13 @@ Password to access the notebook: $PASSWORD
 EOF
 )
 
+
 # Print the connection details to both the terminal and a txt file
 echo "$CONNECTION_MESSAGE" | tee connection_info.txt
 
+mkdir -p ~/tmpdir
+
+export TMPDIR='~/tmpdir'
 notebooks=./notebooks
 # Run Jupyter notebook
 uv run --with jupyter jupyter lab --port=$JUPYTER_PORT --NotebookApp.password="$HASHED_PASSWORD" --notebook-dir="$notebooks" --no-browser --ip 0.0.0.0

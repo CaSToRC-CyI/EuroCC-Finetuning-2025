@@ -2,7 +2,7 @@
 
 #SBATCH --partition=gpu
 #SBATCH --account=edu28
-##SBATCH --reservation=short
+#SBATCH --reservation=edu28
 #SBATCH --time=0:30:00
 
 ## Specify resources:
